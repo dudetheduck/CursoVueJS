@@ -7,36 +7,34 @@
         <script src="./vue.js"></script>
         <title>Document</title>
         <style>
-            .verde {
-                color: green;
-            }
-
-            .negrito {
-                font-weight: bold;
-            }
+            
         </style>
     </head>
     <body>
 
         <div id="app">
-            <a :href="site">Site</a>
-            <p :class="cor" class="negrito">Entendendo a diretiva v-bind</p>
-            <input type="text" :placeholder="instrucaoDePreenchimento" :value="valor">
-            <input type="checkbox" :checked="check">
+            <p v-once>Saldo inicial: {{ saldo }}</p>
+            <p>Saldo atualizado: {{ saldo }}</p>
+            <input type="text" id="valor">
+            <button @click="creditar()">Creditar</button>
+            <button @click="debitar()">Debitar</button>
         </div>
 
-        <script>           
+        <script>
 
             const vm = new Vue({
                 el: '#app',
                 data: {
-                    site: 'https://jorgesantana.net.br',
-                    cor: 'verde',
-                    instrucaoDePreenchimento: 'Placeholder - Diretiva v-bind',
-                    valor: 'Entendendo a diretiva v-bind',
-                    check: true
+                    saldo: 1100
                 },
-                methods: {}
+                methods: {
+                    creditar() {
+                        this.saldo += parseFloat(valor.value)
+                    },
+                    debitar() {
+                        this.saldo -= valor.value
+                    }
+                }
             })
 
         </script>
