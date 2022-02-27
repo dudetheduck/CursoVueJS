@@ -6,18 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="./vue.js"></script>
         <title>Document</title>
-        <style>
-            
-        </style>
+        <style></style>
     </head>
     <body>
 
         <div id="app">
-            <p v-once>Saldo inicial: {{ saldo }}</p>
-            <p>Saldo atualizado: {{ saldo }}</p>
-            <input type="text" id="valor">
-            <button @click="creditar()">Creditar</button>
-            <button @click="debitar()">Debitar</button>
+            <span>Paciente: </span> <input type="text" v-model="paciente">
+            <br>
+            <ul>
+                <li v-for="p in lista">{{p.nome}}, {{p.idade}}</li>
+            </ul>
         </div>
 
         <script>
@@ -25,14 +23,26 @@
             const vm = new Vue({
                 el: '#app',
                 data: {
-                    saldo: 1100
+                    paciente: '',
+                    pacientes: [
+                        { nome: 'Jorge Sant Ana', idade: 32 },
+                        { nome: 'João Santos', idade: 35 },
+                        { nome: 'José Augusto', idade: 18 },
+                        { nome: 'Junior Silva', idade: 20 },
+                        { nome: 'Julio Nogueira', idade: 50 }
+                    ],
+                    lista: []
                 },
                 methods: {
-                    creditar() {
-                        this.saldo += parseFloat(valor.value)
-                    },
-                    debitar() {
-                        this.saldo -= valor.value
+                    
+                },
+                computed: {
+                    
+                },
+                watch: {
+                    paciente(valorNovo) {
+                        console.log(valorNovo)
+                        this.lista = this.pacientes.filter(p => p.nome.match(valorNovo))
                     }
                 }
             })
