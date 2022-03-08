@@ -11,11 +11,12 @@
     <body>
 
         <div id="app">
-            <span>Paciente: </span> <input type="text" v-model="paciente">
-            <br>
-            <ul>
-                <li v-for="p in lista">{{p.nome}}, {{p.idade}}</li>
-            </ul>
+            <h1>Manipulando CSS com VueJS</h1>
+            <div :style="estilo">
+                Definindo styles com objetos
+            </div>
+            {{ estilo }}
+            <button @click="tamanhoTexto += 5">Aumentar texto</button>
         </div>
 
         <script>
@@ -23,26 +24,28 @@
             const vm = new Vue({
                 el: '#app',
                 data: {
-                    paciente: '',
-                    pacientes: [
-                        { nome: 'Jorge Sant Ana', idade: 32 },
-                        { nome: 'João Santos', idade: 35 },
-                        { nome: 'José Augusto', idade: 18 },
-                        { nome: 'Junior Silva', idade: 20 },
-                        { nome: 'Julio Nogueira', idade: 50 }
-                    ],
-                    lista: []
-                },
-                methods: {
-                    
+                    tamanhoTexto: 30
                 },
                 computed: {
-                    
-                },
-                watch: {
-                    paciente(valorNovo) {
-                        console.log(valorNovo)
-                        this.lista = this.pacientes.filter(p => p.nome.match(valorNovo))
+                    estilo() {
+
+                        let width = Math.floor((Math.random() * 100) + 100)
+                        let height = Math.floor((Math.random() * 100) + 100)
+
+                        let background = 'blue'
+                        let horas = new Date()
+
+                        if(horas.getHours() > 18) {
+                            background = 'red'
+                        }
+
+                        return {
+                            background: background,
+                            width: width + 'px',
+                            height: height + 'px',
+                            padding: 10 + 'px',
+                            fontSize: this.tamanhoTexto + 'px'
+                        }
                     }
                 }
             })
