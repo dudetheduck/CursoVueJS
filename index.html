@@ -11,44 +11,22 @@
     <body>
 
         <div id="app">
-            <h1>Manipulando CSS com VueJS</h1>
-            <div :style="estilo">
-                Definindo styles com objetos
-            </div>
-            {{ estilo }}
-            <button @click="tamanhoTexto += 5">Aumentar texto</button>
+            <h1>{{ titulo }}</h1>
+            <p>{{ descricao }}</p>
         </div>
 
         <script>
 
-            const vm = new Vue({
-                el: '#app',
-                data: {
-                    tamanhoTexto: 30
-                },
-                computed: {
-                    estilo() {
-
-                        let width = Math.floor((Math.random() * 100) + 100)
-                        let height = Math.floor((Math.random() * 100) + 100)
-
-                        let background = 'blue'
-                        let horas = new Date()
-
-                        if(horas.getHours() > 18) {
-                            background = 'red'
-                        }
-
-                        return {
-                            background: background,
-                            width: width + 'px',
-                            height: height + 'px',
-                            padding: 10 + 'px',
-                            fontSize: this.tamanhoTexto + 'px'
-                        }
+            const BoasVindasVueApp = {
+                data() {
+                    return {
+                        titulo: 'Boas-vindas',
+                        descricao: 'Chegou a hora de trabalharmos com o VueJS 3'
                     }
                 }
-            })
+            }
+
+            Vue.createApp(BoasVindasVueApp).mount('#app')
 
         </script>
     </body>
