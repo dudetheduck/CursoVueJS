@@ -1,30 +1,23 @@
 <template>
   <div>
-    <LayoutTopo />
-    <LayoutConteudo></LayoutConteudo>
+    <topo-padrao />
+    <conteudo></conteudo>
   </div>
 </template>
 
 <script>
-import LayoutConteudo from './components/layouts/LayoutConteudo.vue'
-import LayoutTopo from './components/layouts/LayoutTopo.vue'
+import Conteudo from './components/layouts/Conteudo.vue'
+import TopoPadrao from './components/layouts/TopoPadrao.vue'
 
 export default {
   name: 'App',
   components: {
-    LayoutConteudo,
-    LayoutTopo
+    Conteudo,
+    TopoPadrao
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
