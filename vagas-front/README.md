@@ -1,4 +1,4 @@
-# vue-electron
+# vagas-front
 
 ## Project setup
 ```
