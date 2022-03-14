@@ -1,4 +1,4 @@
-# projeto-vue-padrao
+# vue-electron
 
 ## Project setup
 ```
