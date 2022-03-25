@@ -6,11 +6,22 @@
       </div>
     </div>
 
-    <div class="row mt-5" v-for="(vaga, index) in vagas" :key="index">
-      <div class="col">
-        <vaga v-bind="vaga" />
-      </div>
-    </div>
+    <lista-vagas>
+      <!--
+      <template v-slot:titulo="slotProps">
+        {{ slotProps.dadosTitulo.titulo }}
+        <hr>
+      </template>
+      <template v-slot:default="slotProps">
+        {{ slotProps.vagas }}
+        <hr>
+      </template>
+      <template v-slot:rodape="slotProps">
+        {{ slotProps.dadosRodape.titulo }}
+        <hr>
+      </template>
+      -->
+    </lista-vagas>
 
     <div class="row mt-5">
 
@@ -32,19 +43,18 @@
 
 <script>
 import Indicador from '@/components/comuns/Indicador.vue'
+import ListaVagas from '@/components/comuns/ListaVagas.vue'
 import PesquisarVaga from '@/components/comuns/PesquisarVaga.vue'
-import Vaga from '@/components/comuns/Vaga.vue'
 
   export default {
     name: 'Home',
     components: {
       PesquisarVaga,
       Indicador,
-      Vaga
+      ListaVagas
     },
     data: () => ({
-      usuariosOnline: 0,
-      vagas: []
+      usuariosOnline: 0
     }),
     methods: {
       getUsuariosOnline() {
@@ -53,10 +63,6 @@ import Vaga from '@/components/comuns/Vaga.vue'
     },
     created() {
       setInterval(this.getUsuariosOnline, 1000) // A cada 1seg
-    },
-    //mounted() {
-    activated() {
-      this.vagas = JSON.parse(localStorage.getItem('vagas'))
     }
   }
 </script>
