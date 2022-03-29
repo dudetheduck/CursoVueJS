@@ -5,7 +5,7 @@
                 <span class="fs-4">ENTRADA DE DADOS</span>
                 <hr>
                 <!-- <form @submit.prevent="enviar($event)"> -->
-                <form>
+                <form @reset.prevent="resetar()">
                     <div class="mb-3 row">
                         <label class="col-3 col-form-label">Nome:</label>
                         <div class="col">
@@ -224,10 +224,18 @@
                             </select>
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <label class="col-3 col-form-label">Avaliação:</label>
+                        <div class="col">
+                            <!-- <input-estrelas :numero-estrelas="5" @avaliar="form.avaliacao = $event" /> -->
+                            <input-estrelas :numero-estrelas="5" v-model:avaliar="form.avaliacao" />
+                        </div>
+                    </div>
                     <hr>
                     <div class="mb-3 row">
                         <div class="col d-flex justify-content-between">
-                            <button class="btn btn-secondary" type="reset">Limpar</button>
+                            <button class="btn btn-secondary" type="button" @click="resetar()">Limpar (btn)</button>
+                            <button class="btn btn-secondary" type="reset">Limpar (reset)</button>
                             <button class="btn btn-success" type="button" @click="enviar()">Enviar (btn)</button>
                             <button class="btn btn-success" type="submit">Enviar (submit)</button>
                         </div>                        
@@ -342,6 +350,9 @@
                 <div class="mb-3 row">
                     <span>Curso: {{ form.curso }}</span>
                 </div>
+                <div class="mb-3 row">
+                    <span>avaliação: {{ form.avaliacao }}</span>
+                </div>
             </div>
         </div>
 
@@ -350,7 +361,11 @@
 </template>
 
 <script>
+import InputEstrelas from '@/components/InputEstrelas.vue'
 export default {
+    components: {
+        InputEstrelas
+    },
     name: 'Formulario',
     data: () => ({
         cursos: [
@@ -359,7 +374,8 @@ export default {
             { id: 3, curso: 'Desenvolvimento Web Avançado com Laravel' },
             { id: 4, curso: 'Curso Completo do Desenvolvedor NodeJS e MongoDB' }
         ],
-        form: {
+        form: {},
+        formEstadoInicial: {
             nome: 'Dudu',
             email: 'asdasdasda@yahoo.com',
             senha: '123456789',
@@ -384,9 +400,13 @@ export default {
             escondido: 'Esse input está escondido',
             arquivos: {},
             descricao: '',
-            curso: ''
+            curso: '',
+            avaliacao: 0
         },
     }),
+    created() {
+        this.resetar()
+    },
     methods: {
         selecionarArquivos(event) {
             // console.log(event.target.files)
@@ -398,6 +418,9 @@ export default {
 
             // Uma requisição HTTP para o back-end da aplicação
             // Promise que vai nos permitir tomar ações se a requisição der certo ou errado
+        },
+        resetar() {
+            this.form = Object.assign({}, this.formEstadoInicial)
         }
     }
 }
