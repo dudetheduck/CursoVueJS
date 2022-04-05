@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Contratos from '@/components/vendas/Contratos.vue'
 import Dashboard from '@/components/dashboard/Dashboard.vue'
 import Home from '@/views/Home.vue'
+import Lead from '@/components/vendas/Lead.vue'
 import Leads from '@/components/vendas/Leads.vue'
 import Login from '@/views/Login.vue'
 import Servicos from '@/components/servicos/Servicos.vue'
@@ -21,6 +22,7 @@ const routes = [
             { path: 'vendas', component: Vendas, children: 
                 [
                     { path: 'leads', component: Leads }, // localhost:8080/home/vendas/leads
+                    { path: 'leads/:id', component: Lead }, // localhost:8080/home/vendas/leads/5
                     { path: 'contratos', component: Contratos }, // localhost:8080/home/vendas/contratos
                 ]
             }, // localhost:8080/home/vendas
