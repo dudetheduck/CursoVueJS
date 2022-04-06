@@ -22,29 +22,21 @@
             </div>
         </div>
 
-        <div class="col-auto">
+        <div class="col-auto d-flex justify-content-between">
+            <button type="button" class="btn btn-warning" @click="$router.push({ name: 'leads' })">Voltar</button>
             <button type="button" class="btn btn-primary">Atualizar</button>
         </div>
     </div>
 </template>
 
 <script>
+import ApiMixin from '@/mixins/ApiMixin'
+
 export default {
     name: 'Lead',
-    data: () => ({
-        dados: null
-    }),
-    methods: {
-        getDadosApi() {
-            fetch(`http://localhost:3000/leads/${this.$route.params.id}`)
-                .then(response => response.json())
-                .then(response => {
-                    this.dados = response
-                })
-        }
-    },
+    mixins: [ApiMixin],
     created() {
-        this.getDadosApi()
+        this.getDadosApi(`http://localhost:3000/leads/${this.$route.params.id}`)
     }
 
 }
