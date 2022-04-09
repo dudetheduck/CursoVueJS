@@ -9,6 +9,7 @@ import Lead from '@/components/vendas/Lead.vue'
 import Leads from '@/components/vendas/Leads.vue'
 import Login from '@/views/Login.vue'
 import Opcoes from '@/components/servicos/Opcoes.vue'
+import PaginaNaoEncontrada from '@/views/PaginaNaoEncontrada.vue'
 import Servico from '@/components/servicos/Servico.vue'
 import Servicos from '@/components/servicos/Servicos.vue'
 import Site from '@/views/Site.vue'
@@ -22,19 +23,20 @@ const routes = [
     },
     { 
         path: '/home', // localhost:8080/home
+        alias: '/app',
         component: Home,
         children: [
             { path: 'vendas', component: Vendas, children: 
                 [
                     { path: 'leads', component: Leads, name: 'leads' }, // localhost:8080/home/vendas/leads
-                    { path: 'leads/:id', component: Lead, name: 'lead' }, // localhost:8080/home/vendas/leads/5
+                    { path: 'leads/:id', component: Lead, name: 'lead', alias: ['/l/:id', '/pessoa/:id', '/:id'] }, // localhost:8080/home/vendas/leads/5
                     { path: 'contratos', component: Contratos, name: 'contratos' }, // localhost:8080/home/vendas/contratos
-                    { path: '', component: VendasPadrao } // localhost:8080/home/vendas/vendaspadrao
+                    { path: '', component: VendasPadrao, name: 'vendas' } // localhost:8080/home/vendas/vendaspadrao
                 ]
             }, // localhost:8080/home/vendas
             { path: 'servicos', component: Servicos, name: 'servicos', children:
                 [
-                    { path: ':id', name: 'servico', components: 
+                    { path: ':id', alias: '/s/:id', name: 'servico', components: 
                         {
                             default: Servico,
                             indicadores: Indicadores,
@@ -54,7 +56,21 @@ const routes = [
     {
         path: '/login', // localhost:8080/login
         component: Login
-    }
+    },
+    { path: '/redirecionamento-1', redirect: '/home/servicos' },
+    { path: '/redirecionamento-2', redirect: { name: 'leads' } },
+    { path: '/redirecionamento-3', redirect: '/home/vendas' },
+    { path: '/redirecionamento-4', redirect: { name: 'vendas' } },
+    { path: '/redirecionamento-5', redirect: to => {
+            // Podemos programar algo antes do redirecionamento ser efetivado
+            console.log(to)
+
+            // return '/home/vendas'
+            return { name: 'vendas' }
+        }
+    },
+    // { path: '/:catchAll(.*)*', redirect: '/' } // Vue2 = *
+    { path: '/:catchAll(.*)*', component: PaginaNaoEncontrada } // Vue2 = *
 ]
 
 const router = createRouter({
