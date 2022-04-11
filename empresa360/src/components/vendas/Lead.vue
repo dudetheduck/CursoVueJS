@@ -38,7 +38,16 @@ export default {
     mixins: [ApiMixin],
     created() {
         this.getDadosApi(`http://localhost:3000/leads/${this.id}`)
-    }
+    },
+    // beforeRouteLeave(to, from, next) {
+    beforeRouteLeave() {
+        const confirmar = window.confirm('Deseja sair desse formulário?')
 
+        if(confirmar) {
+            return true
+        } else {
+            return false
+        }
+    }
 }
 </script>
