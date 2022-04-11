@@ -29,14 +29,51 @@ const routes = [
             { path: 'vendas', component: Vendas, children: 
                 [
                     { path: 'leads', component: Leads, name: 'leads' }, // localhost:8080/home/vendas/leads
-                    { path: 'leads/:id', component: Lead, name: 'lead', alias: ['/l/:id', '/pessoa/:id', '/:id'] }, // localhost:8080/home/vendas/leads/5
+                    { 
+                        path: 'leads/:id/:outroParametro',
+                        props: true,
+                        // props: {
+                        //     id: 4,
+                        //     outroParametro: 'pt-br'
+                        // },
+                        /*
+                        props: route => {
+
+                            console.log('Rota ativa: ', route)
+
+                            let teste = route.query.idioma ? route.query.idioma : route.params.outroParametro
+
+                            // Implementando uma lógica para definir as props que serão submetidas para o componente roteado
+                            return {
+                                id: parseInt(route.params.id) + 1,
+                                outroParametro: teste
+                            }
+                        },
+                        */
+                        component: Lead,
+                        name: 'lead',
+                        alias: [
+                            '/l/:id/:outroParametro',
+                            '/pessoa/:id/:outroParametro',
+                            '/:id/:outroParametro'
+                        ] 
+                    }, // localhost:8080/5
                     { path: 'contratos', component: Contratos, name: 'contratos' }, // localhost:8080/home/vendas/contratos
                     { path: '', component: VendasPadrao, name: 'vendas' } // localhost:8080/home/vendas/vendaspadrao
                 ]
             }, // localhost:8080/home/vendas
             { path: 'servicos', component: Servicos, name: 'servicos', children:
                 [
-                    { path: ':id', alias: '/s/:id', name: 'servico', components: 
+                    { 
+                        path: ':id',
+                        props: {
+                            default: true,
+                            indicadores: true,
+                            opcoes: true
+                        },
+                        alias: '/s/:id',
+                        name: 'servico',
+                        components:
                         {
                             default: Servico,
                             indicadores: Indicadores,
@@ -76,6 +113,13 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes // routes: routes
+})
+
+router.beforeEach((to, from) => {
+    console.log('Origem: ', from)
+    console.log('Destino: ', to)
+    // Verificar se o usuário está autorizado a acessar a rota
+    console.log('Método executado antes do acesso a rota destino')
 })
 
 export default router
